@@ -1,5 +1,6 @@
 
 import UserModel from "../models/UserModel.js";
+import { genToken } from "../utils/genToken.js";
 
 export const register =async (req, res, next) => {
   try {
@@ -18,6 +19,7 @@ export const register =async (req, res, next) => {
       password: password,
       confirmPassword: confirmPassword,
     });
+    let token=genToken(newUser._id);
     res.status(201).json({
       username:newUser.username,
       email:newUser.email,
@@ -42,10 +44,12 @@ export const login = async (req, res, next) => {
         message: "Invalid credentials",
       });
     }
+    let token=genToken(existingUser._id)
     res.status(200).json({
       id:existingUser._id,
       username:existingUser.username,
       email:existingUser.email,
+      token
     });
   } catch (error) {
     res.status(500).json({
