@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { register } from "module";
-import { login } from "../controllers/userController.js";
+import { login, register } from "../controllers/userController.js";
 
 let router=Router();
 
-router.get("/api/user/register",register)
-router.get("/api/user/login",login)
+router.post("/register",register)
+router.post("/login",login)
 
 
 export default router;
